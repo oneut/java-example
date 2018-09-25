@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_java-example" default="compile.module.java-example">
+  <dirname property="module.java-example.basedir" file="${ant.file.module_java-example}"/>
+  
+  <property name="module.jdk.home.java-example" value=""/>
+  <property name="module.jdk.bin.java-example" value=""/>
+  <property name="module.jdk.classpath.java-example" value=""/>
+  
+  <property name="compiler.args.java-example" value="-encoding UTF-8 -source 10 -target 10 ${compiler.args}"/>
+  
+  <property name="java-example.output.dir" value="${module.java-example.basedir}/out/production/java-example"/>
+  <property name="java-example.testoutput.dir" value="${module.java-example.basedir}/out/test/java-example"/>
+  
+  <path id="java-example.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="java-example.module.production.classpath"/>
+  
+  <path id="java-example.runtime.production.module.classpath">
+    <pathelement location="${java-example.output.dir}"/>
+  </path>
+  
+  <path id="java-example.module.classpath">
+    <pathelement location="${java-example.output.dir}"/>
+  </path>
+  
+  <path id="java-example.runtime.module.classpath">
+    <pathelement location="${java-example.testoutput.dir}"/>
+    <pathelement location="${java-example.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.java-example">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.java-example">
+    <patternset refid="excluded.from.module.java-example"/>
+  </patternset>
+  
+  
+  <target name="compile.module.java-example" depends="compile.module.java-example.production,compile.module.java-example.tests" description="Compile module java-example"/>
+  
+  <target name="compile.module.java-example.production" depends="register.custom.compilers" description="Compile module java-example; production classes"/>
+  
+  <target name="compile.module.java-example.tests" depends="register.custom.compilers,compile.module.java-example.production" description="compile module java-example; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.java-example" description="cleanup module">
+    <delete dir="${java-example.output.dir}"/>
+    <delete dir="${java-example.testoutput.dir}"/>
+  </target>
+</project>
